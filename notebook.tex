@@ -1,0 +1,2233 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}\PY{p}{,}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}\PY{p}{,} \PY{n}{classification\PYZus{}report}\PY{p}{,}\PY{n}{accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{sparse} \PY{k}{import} \PY{n}{coo\PYZus{}matrix}\PY{p}{,} \PY{n}{hstack}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}\PY{p}{,} \PY{n}{TfidfTransformer}
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         \PY{k+kn}{from} \PY{n+nn}{imblearn}\PY{n+nn}{.}\PY{n+nn}{under\PYZus{}sampling} \PY{k}{import} \PY{n}{RandomUnderSampler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         \PY{k+kn}{import} \PY{n+nn}{xgboost}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KMP\PYZus{}DUPLICATE\PYZus{}LIB\PYZus{}OK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}\PY{p}{,} \PY{n}{TfidfTransformer}
+         \PY{k+kn}{import} \PY{n+nn}{nltk}
+         \PY{n}{words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{nltk}\PY{o}{.}\PY{n}{corpus}\PY{o}{.}\PY{n}{words}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{k+kn}{from} \PY{n+nn}{gensim}\PY{n+nn}{.}\PY{n+nn}{corpora} \PY{k}{import} \PY{n}{Dictionary}
+         \PY{k+kn}{from} \PY{n+nn}{gensim}\PY{n+nn}{.}\PY{n+nn}{models}\PY{n+nn}{.}\PY{n+nn}{word2vec} \PY{k}{import} \PY{n}{Word2Vec}
+         \PY{k+kn}{import} \PY{n+nn}{string}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/smart\_open/ssh.py:34: UserWarning: paramiko missing, opening SSH/SCP/SFTP paths will be disabled.  `pip install paramiko` to suppress
+  warnings.warn('paramiko missing, opening SSH/SCP/SFTP paths will be disabled.  `pip install paramiko` to suppress')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Load the datasets}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Data/reddit\PYZus{}200k\PYZus{}train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iso\PYZhy{}8859\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Data/reddit\PYZus{}200k\PYZus{}test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iso\PYZhy{}8859\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Strip unnecessary columns}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{i} \PY{o}{!=} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{i} \PY{o}{!=} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Separate the predictive feature and the targeted feature}
+        \PY{n}{X\PYZus{}list} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{body}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{body}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REMOVED}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{X\PYZus{}n} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{body}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{task-1-bag-of-words-and-simple-features}{%
+\section{Task 1 Bag of Words and simple
+Features}\label{task-1-bag-of-words-and-simple-features}}
+
+    \hypertarget{baseline-model-logistic-regression}{%
+\subsection{1.1: Baseline Model (Logistic
+Regression)}\label{baseline-model-logistic-regression}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Tokenization}
+        \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cv\PYZus{}X} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Split the dataset into the training set and test set}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{cv\PYZus{}X}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Build a baseline model (logistic regression)}
+        \PY{n}{lg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Fit the model to the data}
+        \PY{n}{lg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Compute the accurecy }
+        \PY{n}{lg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+/anaconda3/lib/python3.7/site-packages/sklearn/svm/base.py:931: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0.6886087434042452
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Compute the test score}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{lg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 0.6886087434042452
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Build a confusion matrix}
+        \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} array([[19777,  5859],
+               [ 7183,  9064]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} The table of each test score}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+       False       0.73      0.77      0.75     25636
+        True       0.61      0.56      0.58     16247
+
+   micro avg       0.69      0.69      0.69     41883
+   macro avg       0.67      0.66      0.67     41883
+weighted avg       0.68      0.69      0.69     41883
+
+
+    \end{Verbatim}
+
+    \hypertarget{rescale-and-use-other-techniques-n-grams-tf-idf}{%
+\section{1.2: Rescale and Use Other Techniques (n-grams,
+tf-idf)}\label{rescale-and-use-other-techniques-n-grams-tf-idf}}
+
+    Strip punctuations and stopwords without n\_gram
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Create a countvectorizer with arguments of removing punctuations and stopwords}
+         \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{X\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Split the dataset into training set and test set}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Build a logistic model and fit it to the data}
+         \PY{n}{lg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Compute the test score}
+         \PY{n}{lg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0.6833082634959291
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Gridsearch }
+         \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}penalty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+         
+         \PY{p}{\PYZcb{}}
+         
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3} \PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roc\PYZus{}auc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 7 candidates, totalling 21 fits
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.5s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:    0.6s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.5s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:    1.4s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.6s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    2.3s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.543320952797687, total=   0.7s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+[Parallel(n\_jobs=1)]: Done   4 out of   4 | elapsed:    3.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.545242171679164, total=   0.9s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   5 out of   5 | elapsed:    4.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5436764386427085, total=   0.9s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   6 out of   6 | elapsed:    5.4s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7141468589305742, total=   0.9s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   7 out of   7 | elapsed:    6.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7214084651395443, total=   0.9s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   8 out of   8 | elapsed:    7.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7169638571093843, total=   0.8s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   9 out of   9 | elapsed:    8.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7571239869393849, total=   1.1s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7588402902349063, total=   1.0s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7554309139610973, total=   1.5s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7232123744950699, total=   2.4s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7216165450123482, total=   1.5s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7200405552795927, total=   3.1s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.68735210005142, total=   8.2s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6861621522619682, total=   7.2s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6841141845653332, total=   8.6s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.675826573453972, total=  21.7s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6748955641104528, total=  12.6s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6727147857190562, total=  17.1s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done  21 out of  21 | elapsed:  1.6min finished
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} GridSearchCV(cv=3, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('lg', LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                   n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                   tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=None,
+                param\_grid=\{'lg\_\_penalty': ['l1'], 'lg\_\_C': array([1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01, 1.e+02, 1.e+03])\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='roc\_auc', verbose=10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} The best parameters and accuracy score }
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'lg\_\_C': 1.0, 'lg\_\_penalty': 'l1'\}
+Accurancy: 0.6949836449155982
+
+    \end{Verbatim}
+
+    Strip punctuations and stopwords with bi\_gram
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Create a countVectorizer with arguments of removing punctuations and stopwords and bi\PYZhy{}gram}
+         \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Split the dataset into training set and test set}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Build a logistic model and fit it to the data}
+         \PY{n}{lg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Compute the test score}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{lg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/svm/base.py:931: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 0.6847885777045579
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Gridsearch}
+         \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}token\PYZus{}pattern\PYZdq{}:[r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{}],}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}min\PYZus{}df\PYZdq{}:np.arange(4,8,2),}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}stop\PYZus{}words\PYZdq{}:[ENGLISH\PYZus{}STOP\PYZus{}WORDS]}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}penalty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+         
+         \PY{p}{\PYZcb{}}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3} \PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roc\PYZus{}auc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 7 candidates, totalling 21 fits
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   1.0s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:    1.3s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   1.0s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:    2.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   1.0s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    3.8s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5200629884521171, total=   1.1s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   4 out of   4 | elapsed:    5.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5198304689322654, total=   1.4s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   5 out of   5 | elapsed:    6.8s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5192083365736061, total=   1.5s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   6 out of   6 | elapsed:    8.6s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7049510086449231, total=   1.5s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   7 out of   7 | elapsed:   10.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.712579769644371, total=   2.3s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   8 out of   8 | elapsed:   13.0s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7086567501579834, total=   1.9s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   9 out of   9 | elapsed:   15.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7571157638944396, total=   3.0s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7595311984040095, total=   1.9s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.756901679814624, total=   1.7s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.711344983553862, total=   3.9s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7115647019000113, total=   4.9s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7076470468629725, total=   6.1s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6762409862943093, total=  10.8s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6768835219292323, total=   9.0s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6703638537038803, total=  10.8s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6613833368361557, total=  17.1s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6618883625646825, total=  15.3s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.655401593091671, total=  15.3s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done  21 out of  21 | elapsed:  2.0min finished
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} GridSearchCV(cv=3, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('lg', LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                   n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                   tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=None,
+                param\_grid=\{'lg\_\_penalty': ['l1'], 'lg\_\_C': array([1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01, 1.e+02, 1.e+03])\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='roc\_auc', verbose=10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} The best parameters and accuracy score }
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'lg\_\_C': 1.0, 'lg\_\_penalty': 'l1'\}
+Accurancy: 0.69593868634052
+
+    \end{Verbatim}
+
+    \hypertarget{adding-new-features-url-and-numbers}{%
+\section{1.3: Adding New Features (URL and
+Numbers)}\label{adding-new-features-url-and-numbers}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} A function that checks if a string contains an url}
+         \PY{k}{def} \PY{n+nf}{findurl}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{url} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http[s]?://(?:[a\PYZhy{}zA\PYZhy{}Z]|[0\PYZhy{}9]|[\PYZdl{}\PYZhy{}\PYZus{}@.\PYZam{}+] |[!*}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{), ]|(?:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{[0\PYZhy{}9a\PYZhy{}fA\PYZhy{}F][0\PYZhy{}9a\PYZhy{}fA\PYZhy{}F]))+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{string}\PY{p}{)} 
+             \PY{k}{return} \PY{n}{url} 
+         
+         \PY{c+c1}{\PYZsh{} A function that checks if a number(s) are  in a string}
+         \PY{k}{def} \PY{n+nf}{findnum}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+             \PY{n}{num} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{if} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o+ow}{in} \PY{n}{string}\PY{p}{]}
+             \PY{k}{return} \PY{n}{num}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Adding extra features}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{st} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{result} \PY{o}{=} \PY{n}{findurl}\PY{p}{(}\PY{n}{st}\PY{p}{)}
+             \PY{n}{result1} \PY{o}{=} \PY{n}{findnum}\PY{p}{(}\PY{n}{st}\PY{p}{)}
+             \PY{k}{if} \PY{n}{result} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                 
+             \PY{k}{if} \PY{n}{result1} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{num} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{num}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{url} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{num}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{url}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{X\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}n}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{r}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}token\PYZus{}pattern\PYZdq{}:[r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{}],}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}min\PYZus{}df\PYZdq{}:np.arange(4,8,2),}
+         \PY{c+c1}{\PYZsh{}     \PYZdq{}cv\PYZus{}\PYZus{}stop\PYZus{}words\PYZdq{}:[ENGLISH\PYZus{}STOP\PYZus{}WORDS]}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}penalty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+         
+         \PY{p}{\PYZcb{}}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3} \PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roc\PYZus{}auc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{42}\PY{p}{)}
+         
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 7 candidates, totalling 21 fits
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.4s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:    0.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.3s
+[CV] lg\_\_C=0.001, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:    1.0s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, lg\_\_penalty=l1, score=0.5, total=   0.4s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    1.4s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5531012670985127, total=   0.4s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   4 out of   4 | elapsed:    1.9s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.5520064177220975, total=   0.5s
+[CV] lg\_\_C=0.01, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   5 out of   5 | elapsed:    2.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.01, lg\_\_penalty=l1, score=0.55245930848009, total=   0.5s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   6 out of   6 | elapsed:    3.1s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.718794809410702, total=   0.6s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   7 out of   7 | elapsed:    3.8s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7109608045513142, total=   0.6s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   8 out of   8 | elapsed:    4.6s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.7195023952145924, total=   0.6s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   9 out of   9 | elapsed:    5.3s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7573855941397839, total=   1.6s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7528435090333897, total=   1.5s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.7578018654843406, total=   1.2s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7226647315623086, total=   2.1s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7179227553408662, total=   2.6s
+[CV] lg\_\_C=10.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=10.0, lg\_\_penalty=l1, score=0.7237819191192159, total=   2.5s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6835210004996994, total=   3.9s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6830174899568582, total=   4.5s
+[CV] lg\_\_C=100.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=100.0, lg\_\_penalty=l1, score=0.6840735473302715, total=   4.9s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6719418174848119, total=   7.2s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6719357116277758, total=   8.0s
+[CV] lg\_\_C=1000.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1000.0, lg\_\_penalty=l1, score=0.6711785331687943, total=   5.8s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done  21 out of  21 | elapsed:   52.9s finished
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} GridSearchCV(cv=3, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('lg', LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                   n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                   tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=None,
+                param\_grid=\{'lg\_\_penalty': ['l1'], 'lg\_\_C': array([1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01, 1.e+02, 1.e+03])\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='roc\_auc', verbose=10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} The best parameters and accuracy score }
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'lg\_\_C': 1.0, 'lg\_\_penalty': 'l1'\}
+Accurancy: 0.6952462813074517
+
+    \end{Verbatim}
+
+    \hypertarget{remove-non-english-words}{%
+\subsubsection{Remove non-English
+words}\label{remove-non-english-words}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{nltk}\PY{o}{.}\PY{n}{corpus}\PY{o}{.}\PY{n}{words}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}n\PYZus{}n} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{}string without numbers and non english words}
+         \PY{k}{for} \PY{n}{sentence} \PY{o+ow}{in} \PY{n}{X\PYZus{}n}\PY{p}{:}
+             \PY{n}{sent} \PY{o}{=} \PY{n}{sentence}
+             
+         
+             \PY{n}{a} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{nltk}\PY{o}{.}\PY{n}{wordpunct\PYZus{}tokenize}\PY{p}{(}\PY{n}{sent}\PY{p}{)} \PYZbs{}
+                     \PY{k}{if} \PY{n}{w}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o+ow}{in} \PY{n}{words} \PY{o+ow}{or} \PY{o+ow}{not} \PY{n}{w}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{X\PYZus{}n\PYZus{}n}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{X\PYZus{}n\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}n}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}n\PYZus{}n\PYZus{}cv} \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}n\PYZus{}n\PYZus{}cv}\PY{p}{,}\PY{n}{r}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}penalty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3} \PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{roc\PYZus{}auc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}n\PYZus{}n\PYZus{}cv}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{stratify} \PY{o}{=} \PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 1 candidates, totalling 3 fits
+[CV] lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_penalty=l1, score=0.7300862231110424, total=   0.5s
+[CV] lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:    0.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_penalty=l1, score=0.7271632904992076, total=   0.5s
+[CV] lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:    1.1s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_penalty=l1, score=0.7221026183479625, total=   0.5s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    1.7s remaining:    0.0s
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    1.7s finished
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} GridSearchCV(cv=3, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('lg', LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                   n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                   tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=None,
+                param\_grid=\{'lg\_\_penalty': ['l1']\}, pre\_dispatch='2*n\_jobs',
+                refit=True, return\_train\_score='warn', scoring='roc\_auc',
+                verbose=10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} The best parameters and accuracy score }
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{final\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'lg\_\_penalty': 'l1'\}
+Accurancy: 0.6716806341475061
+
+    \end{Verbatim}
+
+    \hypertarget{undersampling}{%
+\subsubsection{Undersampling}\label{undersampling}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{rus} \PY{o}{=} \PY{n}{RandomUnderSampler}\PY{p}{(}\PY{n}{replacement}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}subsample} \PY{o}{=} \PY{n}{rus}\PY{o}{.}\PY{n}{fit\PYZus{}sample}\PY{p}{(}
+             \PY{n}{X}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(129476, 1)
+[64738 64738]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{url} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{num} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{st} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}st\PYZdq{},st)}
+             \PY{n}{result} \PY{o}{=} \PY{n}{findurl}\PY{p}{(}\PY{n}{st}\PY{p}{)}
+             \PY{n}{result1} \PY{o}{=} \PY{n}{findnum}\PY{p}{(}\PY{n}{st}\PY{p}{)}
+             \PY{k}{if} \PY{n}{result} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{url}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{url}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 
+             \PY{k}{if} \PY{n}{result1} \PY{o}{!=} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{num}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{num}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{r} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{num}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{url}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         
+         \PY{n}{X\PYZus{}train\PYZus{}subsample} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{vect} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{w+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{ENGLISH\PYZus{}STOP\PYZus{}WORDS}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}SS\PYZus{}cv} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}subsample}\PY{p}{)}
+         \PY{n}{X\PYZus{}SS\PYZus{}cv} \PY{o}{=} \PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}SS\PYZus{}cv}\PY{p}{,}\PY{n}{r}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{undersample\PYZus{}pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+         \PY{c+c1}{\PYZsh{}     (\PYZdq{}cv\PYZdq{}, CountVectorizer(token\PYZus{}pattern= r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{},ngram\PYZus{}range=(1,3))),}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}SS\PYZus{}cv}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{stratify} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,}\PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{undersample\PYZus{}pipe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{undersample\PYZus{}pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accurancy: 0.7003614569495505
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{c+c1}{\PYZsh{}\PYZdq{}cv\PYZus{}\PYZus{}max\PYZus{}features\PYZdq{}:np.arange(2200,2500,100),}
+         \PY{c+c1}{\PYZsh{}    \PYZdq{}cv\PYZus{}\PYZus{}token\PYZus{}pattern\PYZdq{}:[r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{}],}
+         \PY{c+c1}{\PYZsh{}    \PYZdq{}cv\PYZus{}\PYZus{}min\PYZus{}df\PYZdq{}:np.arange(2,8,2),}
+         \PY{c+c1}{\PYZsh{}    \PYZdq{}cv\PYZus{}\PYZus{}stop\PYZus{}words\PYZdq{}:[ENGLISH\PYZus{}STOP\PYZus{}WORDS],}
+         \PY{c+c1}{\PYZsh{}    \PYZdq{}cv\PYZus{}\PYZus{}ngram\PYZus{}range\PYZdq{}: [(1,3)]}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{undersample\PYZus{}pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3} \PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 7 candidates, totalling 21 fits
+[CV] lg\_\_C=0.001 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, score=0.6774482545566883, total=   0.5s
+[CV] lg\_\_C=0.001 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:    0.6s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, score=0.6732676326114492, total=   0.4s
+[CV] lg\_\_C=0.001 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:    1.1s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.001, score=0.6777063766683143, total=   0.4s
+[CV] lg\_\_C=0.01 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:    1.6s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.01, score=0.6810318195860364, total=   0.4s
+[CV] lg\_\_C=0.01 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   4 out of   4 | elapsed:    2.1s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.01, score=0.6766659458123513, total=   0.4s
+[CV] lg\_\_C=0.01 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   5 out of   5 | elapsed:    2.6s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.01, score=0.6795600593178448, total=   0.4s
+[CV] lg\_\_C=0.1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   6 out of   6 | elapsed:    3.2s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.1, score=0.6905468025949953, total=   0.6s
+[CV] lg\_\_C=0.1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   7 out of   7 | elapsed:    3.9s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.1, score=0.6861812227748771, total=   0.6s
+[CV] lg\_\_C=0.1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   8 out of   8 | elapsed:    4.6s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=0.1, score=0.6924740484429066, total=   0.6s
+[CV] lg\_\_C=1.0 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   9 out of   9 | elapsed:    5.3s remaining:    0.0s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV] {\ldots} lg\_\_C=1.0, score=0.6941921532282979, total=   0.9s
+[CV] lg\_\_C=1.0 {\ldots}
+[CV] {\ldots} lg\_\_C=1.0, score=0.6894250671939202, total=   0.9s
+[CV] lg\_\_C=1.0 {\ldots}
+[CV] {\ldots} lg\_\_C=1.0, score=0.6951309935739002, total=   1.0s
+[CV] lg\_\_C=10.0 {\ldots}
+[CV] {\ldots} lg\_\_C=10.0, score=0.6685511275872722, total=   1.9s
+[CV] lg\_\_C=10.0 {\ldots}
+[CV] {\ldots} lg\_\_C=10.0, score=0.6667799437733634, total=   1.9s
+[CV] lg\_\_C=10.0 {\ldots}
+[CV] {\ldots} lg\_\_C=10.0, score=0.6725469599604548, total=   2.0s
+[CV] lg\_\_C=100.0 {\ldots}
+[CV] {\ldots} lg\_\_C=100.0, score=0.6407784986098239, total=   4.1s
+[CV] lg\_\_C=100.0 {\ldots}
+[CV] {\ldots} lg\_\_C=100.0, score=0.6375544502456053, total=   4.0s
+[CV] lg\_\_C=100.0 {\ldots}
+[CV] {\ldots} lg\_\_C=100.0, score=0.6432896688087, total=   5.5s
+[CV] lg\_\_C=1000.0 {\ldots}
+[CV] {\ldots} lg\_\_C=1000.0, score=0.6251158480074143, total=   9.6s
+[CV] lg\_\_C=1000.0 {\ldots}
+[CV] {\ldots} lg\_\_C=1000.0, score=0.6227254471871235, total=   9.6s
+[CV] lg\_\_C=1000.0 {\ldots}
+[CV] {\ldots} lg\_\_C=1000.0, score=0.625370736529906, total=   8.8s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done  21 out of  21 | elapsed:   56.8s finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} GridSearchCV(cv=3, error\_score='raise-deprecating',
+                estimator=Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('lg', LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='warn',
+                   n\_jobs=None, penalty='l2', random\_state=None, solver='warn',
+                   tol=0.0001, verbose=0, warm\_start=False))]),
+                fit\_params=None, iid='warn', n\_jobs=None,
+                param\_grid=\{'lg\_\_C': array([1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01, 1.e+02, 1.e+03])\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} The best parameters and accuracy score }
+         \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{final\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'lg\_\_C': 1.0\}
+Accurancy: 0.7003614569495505
+
+    \end{Verbatim}
+
+    \hypertarget{different-models}{%
+\subsection{Different Models}\label{different-models}}
+
+    \hypertarget{random-forest}{%
+\subsubsection{Random Forest}\label{random-forest}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+         \PY{c+c1}{\PYZsh{}     (\PYZdq{}cv\PYZdq{}, CountVectorizer(max\PYZus{}features=2000,min\PYZus{}df=5,stop\PYZus{}words=ENGLISH\PYZus{}STOP\PYZus{}WORDS,token\PYZus{}pattern=r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{},ngram\PYZus{}range=(1,3))),}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rf\PYZus{}\PYZus{}n\PYZus{}estimators}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{1500}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rf\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rf\PYZus{}\PYZus{}max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{1500}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         
+         
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}SS\PYZus{}cv}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{stratify} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{pipe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} grid = GridSearchCV(pipe, param\PYZus{}grid=param\PYZus{}grid, cv=3, scoring=\PYZdq{}roc\PYZus{}auc\PYZdq{}, verbose = 10)}
+         \PY{c+c1}{\PYZsh{} grid.fit(X\PYZus{}train, y\PYZus{}train)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('rf', RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+                     max\_depth=10, max\_features='auto', max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_sp{\ldots}obs=None,
+                     oob\_score=False, random\_state=None, verbose=0,
+                     warm\_start=False))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 0.6369674688745405
+\end{Verbatim}
+            
+    \hypertarget{xgboost}{%
+\subsubsection{XGBoost}\label{xgboost}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{c+c1}{\PYZsh{}(\PYZdq{}cv\PYZdq{}, CountVectorizer(min\PYZus{}df=5,ngram\PYZus{}range=(1,2),stop\PYZus{}words=ENGLISH\PYZus{}STOP\PYZus{}WORDS,token\PYZus{}pattern=r\PYZdq{}\PYZbs{}b\PYZbs{}w+\PYZbs{}b\PYZdq{})),}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{TfidfTransformer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xgb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{XGBClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} params = \PYZob{}}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}xgb\PYZus{}\PYZus{}max\PYZus{}depth\PYZsq{}: np.arange(4,10,2),}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}xgb\PYZus{}\PYZus{}eta\PYZsq{}: [0.1,0.15,0.2],}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}xgb\PYZus{}\PYZus{}subsample\PYZsq{}: [0.5,1]}
+         \PY{c+c1}{\PYZsh{}         \PYZcb{}}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}SS\PYZus{}cv}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{stratify} \PY{o}{=} \PY{n}{y\PYZus{}train\PYZus{}subsample}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{42}\PY{p}{)}
+         
+         \PY{n}{pipe}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} grid = GridSearchCV(pipe, param\PYZus{}grid=params, cv=3)}
+         \PY{c+c1}{\PYZsh{} grid.fit(X\PYZus{}train, y\PYZus{}train)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} Pipeline(memory=None,
+              steps=[('tf', TfidfTransformer(norm='l2', smooth\_idf=True, sublinear\_tf=False, use\_idf=True)), ('xgb', XGBClassifier(base\_score=0.5, booster='gbtree', colsample\_bylevel=1,
+                colsample\_bytree=1, gamma=0, learning\_rate=0.1, max\_delta\_step=0,
+                max\_depth=3, min\_child\_weight=1, missing=None, n\_estimators=100,
+                n\_jobs=1, nthread=None, objective='binary:logistic', random\_state=0,
+                reg\_alpha=0, reg\_lambda=1, scale\_pos\_weight=1, seed=None,
+                silent=True, subsample=1))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{pipe}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 0.6404893571009299
+\end{Verbatim}
+            
+    \hypertarget{task-2-word-vectors}{%
+\section{Task 2 Word Vectors}\label{task-2-word-vectors}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{}X\PYZus{}n is body data without numbers}
+         \PY{n}{WE} \PY{o}{=} \PY{n}{X\PYZus{}n}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sw} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{nltk}\PY{o}{.}\PY{n}{corpus}\PY{o}{.}\PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{english}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lemmatizer} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{stem}\PY{o}{.}\PY{n}{WordNetLemmatizer}\PY{p}{(}\PY{p}{)}
+         \PY{n}{stemmer} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{stem}\PY{o}{.}\PY{n}{PorterStemmer}\PY{p}{(}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{}preprocessing words lemmization and stemming}
+         \PY{c+c1}{\PYZsh{}returing X\PYZus{}we, which is the stemmed and lemmazied data}
+         \PY{n}{X\PYZus{}we} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{sentence} \PY{o+ow}{in} \PY{n}{WE}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     if count\PYZpc{}100 == 0:}
+         \PY{c+c1}{\PYZsh{}         print(count)}
+             \PY{n}{X\PYZus{}we}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{s} \PY{o}{=} \PY{n}{nltk}\PY{o}{.}\PY{n}{word\PYZus{}tokenize}\PY{p}{(}\PY{n}{sentence}\PY{p}{)}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{s}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{word}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{sw} \PY{o+ow}{and} \PY{n}{word}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{string}\PY{o}{.}\PY{n}{punctuation}\PY{p}{:}
+                     \PY{n}{current} \PY{o}{=} \PY{n}{word}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{current} \PY{o}{=} \PY{n}{lemmatizer}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+                     \PY{n}{current} \PY{o}{=} \PY{n}{stemmer}\PY{o}{.}\PY{n}{stem}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+                     \PY{n}{X\PYZus{}we}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}count += 1}
+                     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} preparing the Word2Vec model}
+         \PY{n}{wmodel} \PY{o}{=} \PY{n}{Word2Vec}\PY{p}{(}\PY{n}{sentences}\PY{o}{=}\PY{n}{X\PYZus{}we}\PY{p}{,}
+                           \PY{n}{sg}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                           \PY{n}{hs}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                           \PY{n}{workers}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}
+                           \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                           \PY{n}{min\PYZus{}count}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                           \PY{n}{window}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}
+                           \PY{n}{sample}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                           \PY{n}{negative}\PY{o}{=}\PY{l+m+mi}{5}
+                          \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{}Coverting each sentence into vector points for classifier}
+         \PY{n}{all\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{wmodel}\PY{o}{.}\PY{n}{wv}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}we\PYZus{}vec} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{words} \PY{o+ow}{in} \PY{n}{WE}\PY{p}{:}
+             \PY{n}{X\PYZus{}we\PYZus{}vec}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{vec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{wmodel}\PY{o}{.}\PY{n}{vector\PYZus{}size}\PY{p}{)}
+             \PY{n}{nwords} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{word} \PY{o+ow}{in} \PY{n}{all\PYZus{}words}\PY{p}{:} 
+                     \PY{n}{vec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{vec}\PY{p}{,} \PY{n}{wmodel}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{nwords} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{vec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{n}{vec}\PY{p}{,} \PY{n}{nwords}\PY{p}{)}
+             \PY{n}{X\PYZus{}we\PYZus{}vec}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{vec}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/ipykernel\_launcher.py:9: DeprecationWarning: Call to deprecated `\_\_getitem\_\_` (Method will be removed in 4.0.0, use self.wv.\_\_getitem\_\_() instead).
+  if \_\_name\_\_ == '\_\_main\_\_':
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}reformatting into dataframe}
+         \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{X\PYZus{}we\PYZus{}vec}\PY{p}{:}
+             \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{s}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{temp}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+         \PY{n}{X\PYZus{}we\PYZus{}vec\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{}splitting data}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}we\PYZus{}vec\PYZus{}df}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{lg\PYZus{}we} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lg\PYZus{}we}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{lg\PYZus{}we}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} 0.6368216221378602
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+            \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+        	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+        	\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lg\PYZus{}\PYZus{}penalty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{p}{\PYZcb{}}
+        
+        
+        \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}we\PYZus{}vec\PYZus{}df}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{n}{final\PYZus{}model} \PY{o}{=} \PY{n}{best}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{final\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{best}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accurancy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 6 candidates, totalling 18 fits
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.6161397177819223, total=  13.8s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   1 out of   1 | elapsed:   13.9s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.6175085388282047, total=  16.1s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   2 out of   2 | elapsed:   30.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l1, score=0.6172458646402055, total=  14.3s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l2 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   3 out of   3 | elapsed:   44.5s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l2, score=0.6161420799378785, total=   2.4s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l2 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   4 out of   4 | elapsed:   47.0s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l2, score=0.6178731476874055, total=   2.6s
+[CV] lg\_\_C=0.1, lg\_\_penalty=l2 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   5 out of   5 | elapsed:   49.6s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=0.1, lg\_\_penalty=l2, score=0.6171897613922924, total=   2.5s
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   6 out of   6 | elapsed:   52.2s remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[CV]  lg\_\_C=1.0, lg\_\_penalty=l1, score=0.665838704544025, total= 2.2min
+[CV] lg\_\_C=1.0, lg\_\_penalty=l1 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=1)]: Done   7 out of   7 | elapsed:  3.1min remaining:    0.0s
+/anaconda3/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
